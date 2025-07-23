@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chalet Reservation System</title>
     <link rel="stylesheet" href="../css/nav.css" />
-    <link rel="stylesheet" href="../css/signup.css" />
+    <link rel="stylesheet" href="../css/login.css" />
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
@@ -29,6 +29,41 @@
         </div>
       </nav>
     </header>
+
+    <section>
+      <div class="mainsec">
+        <div class="logodiv">
+          <img class="logo" src="../images/beach-hut.png" alt="logo" />
+          <h2>Chalet</h2>
+        </div>
+
+        <div class="topform">
+          <h3>Sign in</h3>
+          <!--might add more words :) -->
+          <form class="inform" action="">
+            <div class="forminput">
+              <label for="username">Username: </label>
+              <input type="text" id="username" name="username" required />
+            </div>
+            <div class="forminput">
+              <label for="password">Password: </label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit">Login</button>
+          </form>
+          <!--we should add js code that tells the user if:
+        missing input
+        invalid input
+        wrong input-->
+        </div>
+
+        <div class="options">
+          <!--forgot password
+        already have account
+        agreements-->
+        </div>
+      </div>
+    </section>
 
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
