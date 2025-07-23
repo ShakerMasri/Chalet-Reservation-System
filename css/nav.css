@@ -21,6 +21,11 @@ header {
 h1 {
   color: #ffd700;
 }
+span {
+  color: white;
+  font-size: 27px;
+  font-weight: bold;
+}
 .navlist ul {
   display: flex;
   list-style-type: none;
@@ -49,7 +54,7 @@ footer {
 }
 .sign {
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 10px 18px;
 }
 .sign.in {
   border: 2px solid transparent;
