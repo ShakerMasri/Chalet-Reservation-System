@@ -13,18 +13,19 @@ header {
 .logodiv {
   display: flex;
   align-items: center;
-  justify-content: space-around;
 }
+
 .logo {
   height: 50px;
+  padding-right: 5px;
 }
 h1 {
-font-family: 'Lobster', cursive;
+  font-family: "Lobster", cursive;
   color: #ffd700;
 }
 span {
-font-family: 'Lobster', cursive;
- color: #f4f1ee;
+  font-family: "Lobster", cursive;
+  color: #f4f1ee;
   font-size: 27px;
   font-weight: bold;
 }
@@ -79,7 +80,7 @@ footer {
   border-style: solid;
 }
 .sign.up:hover {
-  border: 2px solid transparent ;
+  border: 2px solid transparent;
   background-color: #ffd700;
   color: #0e2d56;
 }
