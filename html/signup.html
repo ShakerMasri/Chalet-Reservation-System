@@ -5,35 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chalet Reservation System</title>
     <link rel="stylesheet" href="../css/nav.css" />
-    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/signup.css" />
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <header>
-      <nav class="navbar">
+    <section class="mainsec">
+      <div class="innersec">
         <div class="logologin">
-          <img class="logo" src="../images/beach-hut.png" alt="logo" />
-          <h1>Chalet</h1>
-          <span>Booking</span>
+          <img
+            class="logo"
+            src="../images/beach-hut.png"
+            alt="ChaletBooking Logo"
+          />
+          <h2>ChaletBooking</h2>
         </div>
-        <div class="navfill"></div>
 
-        <div class="navlist">
-          <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#chalets">Chalets</a></li>
-            <li><a href="#rating">Highest rating</a></li>
-            <li><button id="signin" class="sign in">Sign in</button></li>
-            <li><button id="signup" class="sign up">Sign up</button></li>
-          </ul>
+        <div class="topform">
+          <h3>Register</h3>
+          <form class="inform">
+            <div class="name-fields">
+              <div class="forminput">
+                <label for="firstname">First Name: </label>
+                <input type="text" id="firstname" name="firstname" required />
+              </div>
+              <div class="forminput">
+                <label for="lastname">Last Name: </label>
+                <input type="text" id="lastname" name="lastname" required />
+              </div>
+            </div>
+
+            <div class="forminput">
+              <label for="email">Email: </label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="forminput">
+              <label for="phone">Phone Number: </label>
+              <input type="tel" id="phone" name="phone" required />
+            </div>
+
+            <div class="forminput">
+              <label for="password">Password: </label>
+              <input type="password" id="password" name="password" required />
+            </div>
+
+            <div class="forminput">
+              <label for="confirmpassword">Confirm Password: </label>
+              <input
+                type="password"
+                id="confirmpassword"
+                name="confirmpassword"
+                required
+              />
+            </div>
+
+            <button type="submit" class="register-button">Register</button>
+          </form>
+
+          <div class="login-link">
+            Already have an account? <a href="login.html">Login</a>
+          </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </section>
 
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
-    <script src="../js/nav.js"></script>
   </body>
 </html>

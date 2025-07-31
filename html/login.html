@@ -9,28 +9,6 @@
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
-    <header>
-      <nav class="navbar">
-        <div class="logodiv">
-          <img class="logo" src="../images/beach-hut.png" alt="logo" />
-          <h1>Chalet</h1>
-          <span>Booking</span>
-        </div>
-        <div class="navfill"></div>
-
-        <div class="navlist">
-          <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#chalets">Chalets</a></li>
-            <li><a href="#rating">Highest rating</a></li>
-            <li><button id="signin" class="sign in">Sign in</button></li>
-            <li><button id="signup" class="sign up">Sign up</button></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-
     <section class="mainsec">
       <div class="innersec">
         <div class="logologin">
@@ -40,7 +18,6 @@
 
         <div class="topform">
           <h3>Sign in</h3>
-          <!--might add more words :) -->
           <form class="inform" action="">
             <div class="forminput">
               <label for="username">Username: </label>
@@ -50,6 +27,9 @@
               <label for="password">Password: </label>
               <input type="password" id="password" name="password" required />
             </div>
+            <div class="passlink">
+              <a href="Password">Forgot password?</a>
+            </div>
             <button type="submit">Sign in</button>
           </form>
           <!--we should add js code that tells the user if:
@@ -58,10 +38,8 @@
         wrong input-->
         </div>
 
-        <div class="options">
-          <!--forgot password
-        already have account
-        agreements-->
+        <div class="signupLink">
+          Don't have an account? <a href="signup.html">Sign up</a>
         </div>
       </div>
     </section>
@@ -69,6 +47,5 @@
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
-    <script src="../js/nav.js"></script>
   </body>
 </html>

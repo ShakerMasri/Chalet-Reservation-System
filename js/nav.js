@@ -7,10 +7,10 @@ this code is to avoid repeating the same html code for the navbar
 will work on it soon :)
 */
 
-document.getElementById("signup").addEventListener("click", function (e) {
-  window.location.href = "../html/signup.html";
+document.getElementById("sign-up").addEventListener("click", function (e) {
+  window.location.href = "./html/signup.html";
 });
 
-document.getElementById("signin").addEventListener("click", function (e) {
-  window.location.href = "../html/login.html";
+document.getElementById("sign-in").addEventListener("click", function (e) {
+  window.location.href = "./html/login.html";
 });

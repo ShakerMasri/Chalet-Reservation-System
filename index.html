@@ -4,9 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chalet Reservation System</title>
+    <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/nav.css" />
     <link rel="stylesheet" href="./css/home.css" />
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/about.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
     <header>
@@ -24,8 +29,8 @@
             <li><a href="#about">About Us</a></li>
             <li><a href="#chalets">Chalets</a></li>
             <li><a href="#rating">Highest rating</a></li>
-            <li><button id="signin" class="sign in">Sign in</button></li>
-            <li><button id="signup" class="sign up">Sign up</button></li>
+            <li><button id="sign-in" class="signin">Sign in</button></li>
+            <li><button id="sign-up" class="signup">Sign up</button></li>
           </ul>
         </div>
       </nav>
@@ -39,9 +44,48 @@
       </div>
     </section>
 
-    <section id="about">
-      <h2>About Us</h2>
-      <p></p>
+    <section class="about">
+      <div class="main">
+        <h2>Why Choose Our Chalet?</h2>
+        <p class="subtitle">
+          We offer the finest selection of chalet with premium amenities.
+        </p>
+        <div class="inner-section">
+          <div class="grid">
+            <div class="card">
+              <div class="icon">
+                <i class="fas fa-home"></i>
+              </div>
+              <h3>Premium Properties</h3>
+              <p>
+                Carefully selected chalets with stunning views and top-rated
+                amenities.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3>Secure Booking</h3>
+              <p>
+                Your reservation is 100% secure with our verified booking
+                system.
+              </p>
+            </div>
+
+            <div class="card">
+              <div class="icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <h3>24/7 Support</h3>
+              <p>
+                Our team is always available to assist with your booking needs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="chalets">
@@ -57,6 +101,6 @@
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
-    <script src="../js/nav.js"></script>
+    <script src="./js/nav.js"></script>
   </body>
 </html>

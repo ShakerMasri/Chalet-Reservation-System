@@ -1,0 +1,127 @@
+.mainsec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 20px;
+}
+
+.logologin {
+  display: grid;
+  justify-items: center;
+  padding: 5px 20px;
+  margin-bottom: 15px;
+}
+
+.logologin img {
+  height: 60px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.logologin h2 {
+  color: #0e2d56;
+  margin-top: 8px;
+  font-size: 26px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: "Lobster", cursive;
+}
+
+.innersec {
+  border-radius: 20px;
+  padding: 30px;
+  width: 320px;
+  background-color: rgb(255, 254, 254);
+  box-shadow: 0 10px 30px rgba(14, 45, 86, 0.2);
+}
+
+.topform h3 {
+  color: #0e2d56;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-family: "Lobster", cursive;
+}
+
+form {
+  display: grid;
+  gap: 15px;
+}
+
+.name-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.forminput {
+  display: flex;
+  flex-direction: column;
+}
+
+.forminput label {
+  color: #0e2d56;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input {
+  border-radius: 12px;
+  height: 40px;
+  border: 2px solid #0e2d56;
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border: solid 2px #0e2d56;
+  background-color: #f4f1ee;
+}
+
+.register-button {
+  background-color: #0e2d56;
+  color: #fdd700;
+  border-radius: 16px;
+  height: 45px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: "Lobster", cursive;
+  width: 100%;
+}
+
+.register-button:hover {
+  background-color: #fdd700;
+  color: #0e2d56;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(253, 215, 0, 0.3);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #0e2d56;
+}
+
+.login-link a {
+  color: #0e2d56;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #fdd700;
+  text-decoration: underline;
+}
