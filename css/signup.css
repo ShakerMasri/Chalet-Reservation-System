@@ -5,7 +5,9 @@
   flex-direction: column;
   padding: 40px 20px;
 }
-
+.admin-form-container {
+  margin-left: 380px;
+}
 .logologin {
   display: grid;
   justify-items: center;
@@ -16,6 +18,11 @@
 .logologin img {
   height: 60px;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+.logologin img:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
 }
 
 .logologin h2 {
@@ -44,7 +51,7 @@
 
 form {
   display: grid;
-  gap: 15px;
+  gap: 10px;
 }
 
 .name-fields {

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/nav.css" />
     <link rel="stylesheet" href="./css/home.css" />
-    <link rel="stylesheet" href="./css/about.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -29,8 +28,16 @@
             <li><a href="#about">About Us</a></li>
             <li><a href="#chalets">Chalets</a></li>
             <li><a href="#rating">Highest rating</a></li>
-            <li><button id="sign-in" class="signin">Sign in</button></li>
-            <li><button id="sign-up" class="signup">Sign up</button></li>
+            <li>
+              <button id="sign-in" class="signin" onclick="signin()">
+                Sign in
+              </button>
+            </li>
+            <li>
+              <button id="sign-up" class="signup" onclick="signup()">
+                Sign up
+              </button>
+            </li>
           </ul>
         </div>
       </nav>
@@ -43,8 +50,7 @@
         <a href="#chalets">Explore Chalets</a>
       </div>
     </section>
-
-    <section class="about">
+    <section id="about" class="about">
       <div class="main">
         <h2>Why Choose Our Chalet?</h2>
         <p class="subtitle">
@@ -90,7 +96,6 @@
 
     <section id="chalets">
       <h2>Chalets</h2>
-      <div></div>
     </section>
 
     <section id="rating">
@@ -101,6 +106,6 @@
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
-    <script src="./js/nav.js"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>

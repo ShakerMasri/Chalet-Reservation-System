@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View-Chalet</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="dashboard">
+      <aside class="sidebar">
+         <img class="logo" src="../images/beach-hut.png" alt="logo" />
+        <hr />
+        <nav>
+          <a href="../admin.html"><i class="fas fa-home"></i> Home</a>
+           <a href="addChalet.html"
+            ><i class="fas fa-plus-circle"></i> Add Chalet</a
+          >
+          <a href="#"><i class="fas fa-eye"></i>View chalet</a>
+          <a href="addOwner.html"><i class="fas fa-user-plus"></i> Add Owner</a>
+          <a href="manageOwner.html"><i class="fas fa-users-cog"></i> Manage Owners</a>
+        </nav>
+        <button class="logout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </aside>
+     <div class="dashboard-container">
+    <section class="chalets-table-section">
+      <div class="table-header">
+        <h2>Chalet Management</h2>
+        <div class="table-controls">
+          <div class="search-control">
+  <input type="search" id="table-search" placeholder="Search chalets..." aria-label="Search chalets">
+  <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
+</div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="chalets-table">
+          <thead>
+            <tr>
+              <th class="sortable">Chalet ID <i class="fas fa-sort sort-icon"></i></th>
+              <th class="sortable">Chalet Name <i class="fas fa-sort sort-icon"></i></th>
+              <th class="sortable">Location <i class="fas fa-sort sort-icon"></i></th>
+              <th class="sortable">Capacity <i class="fas fa-sort sort-icon"></i></th>
+              <th class="sortable">Price <i class="fas fa-sort sort-icon"></i></th>
+              <th class="sortable">Rating <i class="fas fa-sort sort-icon"></i></th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#1</td>
+              <td>almoluk-Chalet</td>
+              <td>Nablus</td>
+              <td>4</td>
+              <td>$150/night</td>
+              <td class="star">4.5<i class="fas fa-star star-icon"></i></td>
+              <td><button class="delete-btn" title="Delete">
+                  <i class="fas fa-trash-alt"></i> Delete</td>
+              </td>
+            </tr>
+            <tr>
+              <td>#2</td>
+              <td>Golden Star</td>
+              <td>Nablus</td>
+              <td>6</td>
+              <td>$220/night</td>
+              <td class="star">4.8<i class="fas fa-star star-icon"></i></td>
+              <td><button class="delete-btn" title="Delete">
+                  <i class="fas fa-trash-alt"></i> Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+  </div>
+    </div>
+  </body>
+</html>
