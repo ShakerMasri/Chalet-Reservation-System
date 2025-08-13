@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chalet Reservation System</title>
+    <title>ChaletBooking</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/nav.css" />
     <link rel="stylesheet" href="./css/home.css" />
@@ -16,7 +16,9 @@
     <header>
       <nav class="navbar">
         <div class="logodiv">
-          <img class="logo" src="./images/beach-hut.png" alt="logo" />
+          <a href="../index.html">
+            <img class="logo" src="./images/beach-hut.png" alt="logo" />
+          </a>
           <h1>Chalet</h1>
           <span>Booking</span>
         </div>
@@ -43,65 +45,87 @@
       </nav>
     </header>
 
-    <section id="home">
-      <div class="slider">
-        <h2>Your Perfect Getaway Starts Here</h2>
-        <p>Book beautiful chalets in seconds.</p>
-        <a href="#chalets">Explore Chalets</a>
-      </div>
-    </section>
-    <section id="about" class="about">
-      <div class="main">
-        <h2>Why Choose Our Chalet?</h2>
-        <p class="subtitle">
-          We offer the finest selection of chalet with premium amenities.
-        </p>
-        <div class="inner-section">
-          <div class="grid">
-            <div class="card">
-              <div class="icon">
-                <i class="fas fa-home"></i>
-              </div>
-              <h3>Premium Properties</h3>
-              <p>
-                Carefully selected chalets with stunning views and top-rated
-                amenities.
-              </p>
+    <main id="main-content">
+      <section id="swiper-section" class="swiper-section">
+        <div class="swiper-container">
+          <div id="swiper-wrapper" class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="./images/Home.jpg" alt="Slide 1" />
             </div>
-
-            <div class="card">
-              <div class="icon">
-                <i class="fas fa-shield-alt"></i>
-              </div>
-              <h3>Secure Booking</h3>
-              <p>
-                Your reservation is 100% secure with our verified booking
-                system.
-              </p>
+            <div class="swiper-slide">
+              <img src="./images/poolpics/pool5.jpg" alt="Slide 2" />
             </div>
+            <div class="swiper-slide">
+              <img src="./images/interiorpics/int7.jpg" alt="Slide 3" />
+            </div>
+          </div>
 
-            <div class="card">
-              <div class="icon">
-                <i class="fas fa-headset"></i>
+          <div id="next" class="arrWrap prev">
+            <div class="swiper-button next"></div>
+          </div>
+          <div id="prev" class="arrWrap next">
+            <div class="swiper-button prev"></div>
+          </div>
+          <div class="slider-text">
+            <h2>Your Perfect Getaway Starts Here</h2>
+            <p>Book beautiful chalets in seconds.</p>
+            <a href="./html/chaletList.html">Explore Chalets</a>
+          </div>
+        </div>
+      </section>
+      <section id="about" class="about">
+        <div class="main">
+          <h2>Why Choose Our Chalet?</h2>
+          <p class="subtitle">
+            We offer the finest selection of chalet with premium amenities.
+          </p>
+          <div class="inner-section">
+            <div class="grid">
+              <div class="card">
+                <div class="icon">
+                  <i class="fas fa-home"></i>
+                </div>
+                <h3>Premium Properties</h3>
+                <p>
+                  Carefully selected chalets with stunning views and top-rated
+                  amenities.
+                </p>
               </div>
-              <h3>24/7 Support</h3>
-              <p>
-                Our team is always available to assist with your booking needs.
-              </p>
+
+              <div class="card">
+                <div class="icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Secure Booking</h3>
+                <p>
+                  Your reservation is 100% secure with our verified booking
+                  system.
+                </p>
+              </div>
+
+              <div class="card">
+                <div class="icon">
+                  <i class="fas fa-headset"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>
+                  Our team is always available to assist with your booking
+                  needs.
+                </p>
+              </div>
             </div>
           </div>
         </div>
+      </section>
+
+      <section id="chalets">
+        <h2>Chalets</h2>
+      </section>
+
+      <div class="container">
+        <div class="chalets" id="chaletscont"></div>
       </div>
-    </section>
-
-    <section id="chalets">
-      <h2>Chalets</h2>
-    </section>
-
-    <section id="rating">
-      <h2>Highest rating</h2>
-      <p></p>
-    </section>
+    </main>
 
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>

@@ -1,7 +1,4 @@
 #home {
-  background-image: url("../images/Home.jpg");
-  background-size: cover;
-  background-position: center;
   width: 100%;
   height: 500px;
   display: flex;
@@ -11,19 +8,83 @@
   color: #f4f1ee;
 }
 
-#home .slider {
+#home .slider-text {
   background-color: #f4f1ee83;
   color: #0e2d56;
   padding: 20px;
   border-radius: 10px;
   font-size: 16px;
 }
-.slider a {
+.slider-text a {
   text-decoration: none;
   background-color: #0e2d56;
   color: #ffd700;
   padding: 8px 12px;
   border-radius: 5px;
+}
+
+.swiper-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 350px;
+  position: relative;
+  background: #eee;
+}
+.swiper-wrapper {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transition: transform 0.5s ease;
+}
+.swiper-slide {
+  height: 400px;
+  min-width: 100%;
+  background: #ccc;
+}
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.swiper-button {
+  width: 0;
+  height: 0;
+  color: white;
+}
+.swiper-button.next {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid white;
+  left: 0;
+}
+
+.swiper-button.prev {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid white;
+  right: 0;
+}
+.arrWrap {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  width: 3%;
+  height: 100%;
+  display: flex;
+  background: rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+}
+.arrWrap.next {
+  right: 0;
+}
+
+.arrWrap.prev {
+  left: 0;
 }
 /*about section*/
 .about {
@@ -76,4 +137,31 @@
 .card h3 {
   color: #0e2d56;
   margin-bottom: 15px;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #0e2d56;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #0e2d56;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
