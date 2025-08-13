@@ -182,24 +182,6 @@ th {
 tr:hover {
   background-color: #f9f9f9;
 }
-
-.status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  display: inline-block;
-}
-
-.status.pending {
-  background-color: #ffc10733;
-  color: #ffc107;
-}
-
-.status.confirmed {
-  background-color: rgba(76, 175, 80, 0.2);
-  color: #4caf50;
-}
 /*addChaletStyles*/
 .add-form {
   background-color: #ffffff;
@@ -427,19 +409,13 @@ tr:hover {
 .chalets-table tr:hover {
   background-color: #f9f9f9;
 }
-.status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  display: inline-block;
-}
 .actions {
   display: flex;
   gap: 8px;
 }
 .delete-btn,
-.edit-btn {
+.edit-btn,
+.view-btn {
   border: none;
   border-radius: 6px;
   padding: 8px 12px;
@@ -457,7 +433,7 @@ tr:hover {
 }
 .edit-btn {
   background-color: #0e2d56;
-  color: white;
+  color: #ffffff;
 }
 .edit-btn:hover {
   background-color: #0a2342;
@@ -467,6 +443,15 @@ tr:hover {
   background-color: #c62828;
   transform: translateY(-2px);
 }
+.view-btn {
+  background-color: #0e2d56;
+  color: #fdd700;
+}
+.view-btn:hover {
+  background-color: #0a2342;
+  transform: translateY(-2px);
+}
+
 input[type="search"]:focus {
   outline: none;
   background-color: #f4f1ee;
@@ -474,4 +459,116 @@ input[type="search"]:focus {
 .star i {
   margin-left: 4px;
   color: #fdd700;
+}
+
+.filter-control {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-control select,
+.filter-control input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 2px solid #0e2d56;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.chalet-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chalet-image {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.chalet-info {
+  padding: 15px;
+}
+
+.chalet-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.chalet-actions {
+  display: flex;
+  gap: 10px;
+}
+.reviews,
+.chalets {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: sticky;
+}
+
+.reviews-list {
+  display: grid;
+  gap: 15px;
+}
+
+.review-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rating {
+  color: #fdd700;
+}
+
+.review-content h5 {
+  color: #0e2d56;
+  margin-bottom: 5px;
+}
+
+.review-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.reviews {
+  flex: 1;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 12px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
 }
