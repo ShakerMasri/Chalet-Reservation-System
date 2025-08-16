@@ -1,3 +1,7 @@
+<?php
+require_once '../config.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,7 +35,7 @@
       <main class="main">
         <header>
           <h1>Owner Dashboard</h1>
-          <p>Welcome back! Owner</p>
+          <p>Welcome back! <?= ($_SESSION["FirstName"]) ?></p>
         </header>
 
         <div class="stats">
@@ -63,6 +67,23 @@
           </div>
 
           <div class="cards-grid">
+            <div class="chalet-card">
+              <div
+                class="chalet-image"
+                style="background-image: url('../images/Home.jpg')"
+              ></div>
+              <div class="chalet-info">
+                <h3>Almoluk-Chalet</h3>
+                <div class="chalet-meta">
+                  <span><i class="fas fa-map-marker-alt"></i> Nablus</span>
+                </div>
+                <div class="chalet-actions">
+                  <button class="view-btn">
+                    <i class="fas fa-eye"></i> View-Details
+                  </button>
+                </div>
+              </div>
+            </div>
             <div class="chalet-card">
               <div
                 class="chalet-image"

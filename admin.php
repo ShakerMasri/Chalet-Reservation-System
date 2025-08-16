@@ -1,3 +1,7 @@
+<?php
+require_once 'config.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,7 +34,7 @@
             ><i class="fas fa-users-cog"></i> Manage Owners</a
           >
         </nav>
-        <button class="logout">
+        <button class="logout" onClick="logout()">
           <i class="fas fa-sign-out-alt"></i> Logout
         </button>
       </aside>
@@ -38,7 +42,7 @@
       <main class="main">
         <header>
           <h1>Admin Dashboard</h1>
-          <p>Welcome back, Admin</p>
+          <p>Welcome back, <?= ($_SESSION['FirstName'])?></p>
         </header>
 
         <section class="stats">
@@ -56,11 +60,6 @@
             <i class="fas fa-calendar-alt"></i>
             <p>Total Bookings</p>
             <h2>14</h2>
-          </div>
-          <div class="stat-card">
-            <i class="fas fa-dollar-sign"></i>
-            <p>Revenue</p>
-            <h2>$5000</h2>
           </div>
         </section>
 
@@ -103,5 +102,6 @@
         </section>
       </main>
     </div>
+    <script src="./js/admin.js"></script>
   </body>
 </html>

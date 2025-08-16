@@ -1,35 +1,9 @@
-/*document.addEventListener("DOMContentLoaded",()=>{
-    fetch("nav.html").then((res)=>res.text()).then((data)=>{
-        document.getElementById("navbar").innerHTML=data;
-    });
-});
-this code is to avoid repeating the same html code for the navbar
-will work on it soon :)
-*/
-
 function signin() {
-  window.location.href = "./html/login.html";
+  window.location.href = "./html/login.php";
 }
-function signup() {
-  window.location.href = "./html/signup.html";
-}
-function loading() {
-  const container = document.getElementById("main-content");
 
-  container.innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            Loading...
-        </div>
-    `;
-  setTimeout(() => {
-    fetch("../index.html")
-      .then((res) => res.text())
-      .then((data) => {
-        container.innerHTML = data;
-        initswiper();
-      });
-  }, 1000);
+function signup() {
+  window.location.href = "./html/signup.php";
 }
 
 function initswiper() {
@@ -63,5 +37,5 @@ function initswiper() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loading();
+  initswiper();
 });

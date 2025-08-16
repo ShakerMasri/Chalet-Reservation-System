@@ -226,8 +226,8 @@ tr:hover {
 }
 
 .add-form textarea {
+  resize: none;
   min-height: 100px;
-  resize: vertical;
 }
 
 .add-form input:focus,

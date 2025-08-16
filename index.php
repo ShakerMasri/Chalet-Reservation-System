@@ -50,13 +50,13 @@
         <div class="swiper-container">
           <div id="swiper-wrapper" class="swiper-wrapper">
             <div class="swiper-slide">
-              <img src="./images/Home.jpg" alt="Slide 1" />
+              <img src="./images/interiorpics/int4.jpg" alt="Slide 1" />
             </div>
             <div class="swiper-slide">
               <img src="./images/poolpics/pool5.jpg" alt="Slide 2" />
             </div>
             <div class="swiper-slide">
-              <img src="./images/interiorpics/int7.jpg" alt="Slide 3" />
+              <img src="./images/poolpics/pool4.jpg" alt="Slide 3" />
             </div>
           </div>
 
@@ -70,6 +70,15 @@
             <h2>Your Perfect Getaway Starts Here</h2>
             <p>Book beautiful chalets in seconds.</p>
             <a href="./html/chaletList.html">Explore Chalets</a>
+          </div>
+        </div>
+        <div class="slider-overlay">
+          <div class="slider-content">
+            <h2>Your Perfect Getaway Starts Here</h2>
+            <p>Book beautiful chalets in seconds.</p>
+            <a href="./html/chaletList.html" class="modern-btn">
+              Explore Chalets
+            </a>
           </div>
         </div>
       </section>
@@ -130,6 +139,7 @@
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
+
     <script src="./js/main.js"></script>
   </body>
 </html>
