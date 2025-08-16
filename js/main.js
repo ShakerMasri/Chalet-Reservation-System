@@ -43,11 +43,12 @@ function initswiper() {
     swiper.style.transform = `translateX(-${index * 100}%)`;
   }
 }
-initswiper();
+
 document.addEventListener("DOMContentLoaded", () => {
   loading();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderCards("chaletscont", chaletData, 3);
+  renderCards("chaletscont", chaletData, 3, "./html/");
+  initswiper();
 });
