@@ -13,24 +13,6 @@ function signin() {
 function signup() {
   window.location.href = "./html/signup.html";
 }
-function loading() {
-  const container = document.getElementById("main-content");
-
-  container.innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            Loading...
-        </div>
-    `;
-  setTimeout(() => {
-    fetch("../index.html")
-      .then((res) => res.text())
-      .then((data) => {
-        container.innerHTML = data;
-        initswiper();
-      });
-  }, 1000);
-}
 
 function initswiper() {
   const swiper = document.getElementById("swiper-wrapper");
@@ -61,7 +43,11 @@ function initswiper() {
     swiper.style.transform = `translateX(-${index * 100}%)`;
   }
 }
-
+initswiper();
 document.addEventListener("DOMContentLoaded", () => {
   loading();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderCards("chaletscont", chaletData, 3);
 });

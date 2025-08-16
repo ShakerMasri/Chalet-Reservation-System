@@ -3,14 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chalet Reservation System</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/nav.css" />
+    <title>Chalet Details</title>
     <link rel="stylesheet" href="../css/chaletList.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="../css/nav.css" />
+    <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
     <header>
@@ -26,7 +22,7 @@
 
         <div class="navlist">
           <ul>
-            <li><a href="../index.html">Home</a></li>
+            <li><a href="./index.html">Home</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#chalets">Chalets</a></li>
             <li><a href="#rating">Highest rating</a></li>
@@ -45,18 +41,15 @@
       </nav>
     </header>
 
-    <main>
-      <div class="container">
-        <div class="chalets" id="chaletscont"></div>
-      </div>
-    </main>
-
+    <div class="container">
+      <div id="chaletDetails"></div>
+    </div>
     <footer class="footerEnd">
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
-    <script src="../js/chaletData.js"></script>
 
-    <script src="../js/chaletCard.js"></script>
+    <script src="../js/chaletData.js"></script>
     <script src="../js/utils.js"></script>
+    <script src="../js/details.js"></script>
   </body>
 </html>
