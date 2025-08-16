@@ -1,9 +1,14 @@
 function signin() {
   window.location.href = "./html/login.php";
 }
+<<<<<<< HEAD
 
 function signup() {
   window.location.href = "./html/signup.php";
+=======
+function signup() {
+  window.location.href = "./html/signup.html";
+>>>>>>> 4070f6e97eded006a51ecd0f5cbdfd707db3101c
 }
 
 function initswiper() {
@@ -37,5 +42,10 @@ function initswiper() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initswiper();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderCards("chaletscont", chaletData, 3, "./html/");
   initswiper();
 });

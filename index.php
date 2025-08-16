@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/nav.css" />
     <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/chaletList.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -140,6 +142,12 @@
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
 
+<<<<<<< HEAD:index.php
+=======
+    <script src="./js/chaletData.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/chaletCard.js"></script>
+>>>>>>> 4070f6e97eded006a51ecd0f5cbdfd707db3101c:index.html
     <script src="./js/main.js"></script>
   </body>
 </html>
