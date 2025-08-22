@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($email) && !empty($password)) {
 
-        $stmt = $conn->prepare("SELECT email, password, Role ,FirstName, LastName FROM users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT userId,email, password, Role ,FirstName, LastName FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['Role'] = $row['Role'];
                 $_SESSION['FirstName'] = $row['FirstName'];
                 $_SESSION['LastName']  = $row['LastName'];
+                $_SESSION['userId'] = $row['userId'];
 
                 if ($row['Role'] === 'admin') {
                 
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <input type="password" id="password" name="password" required />
             </div>
             <div class="passlink">
-              <a href="Password">Forgot password?</a>
+              <a href="Password.php">Forgot password?</a>
             </div>
             <button type="submit">Sign in</button>
           </form>

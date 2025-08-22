@@ -212,6 +212,11 @@ tr:hover {
   font-weight: bold;
   color: #0e2d56;
 }
+.chalet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
 .add-form input,
 .add-form select,
@@ -282,6 +287,22 @@ tr:hover {
   transition: all 0.3s ease;
   font-family: "Lobster", cursive;
   margin-top: 10px;
+}
+#apply-filter-btn {
+  background-color: #0e2d56;
+  color: #fdd700;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#apply-filter-btn:hover {
+  background-color: #082244;
+  color: #fdd700;
+  transform: translateY(-2px);
 }
 
 .submit-btn:hover {
@@ -533,7 +554,12 @@ input[type="search"]:focus {
   background: white;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.review-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .review-header {

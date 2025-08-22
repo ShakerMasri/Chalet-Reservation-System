@@ -1,0 +1,473 @@
+* {
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  color: #0e2d56;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #f4f1ee;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+h1,
+h2 {
+  color: #0e2d56;
+}
+.back-button-container {
+  margin-bottom: 0px;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin-left: 20px;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: #0e2d56;
+  font-weight: bold;
+  color: #fdd700;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+  text-decoration: none;
+  background-color: #051a35;
+  transform: translateY(-2px);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.back-button i {
+  margin-right: 8px;
+}
+.chalet-details {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.details-left {
+  flex: 1;
+}
+
+.details-right {
+  flex: 1;
+}
+
+.main-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+  border-color: #fdd700;
+}
+
+/* Calendar Header */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-year {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-buttons button {
+  background-color: #0e2d56;
+  color: #ffffff;
+  border: none;
+  padding: 8px 15px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #1a3d6b;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #0e2d56;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.day-cell {
+  aspect-ratio: 1;
+  padding: 4px;
+  border-radius: 5px;
+  background-color: #b1aeab;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.day-cell:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.available {
+  background-color: #d4edda;
+  border: 2px solid #28a745;
+}
+
+.partially-available {
+  background-color: #fff3cd;
+  border: 2px solid #ffc107;
+}
+
+.fully-booked {
+  background-color: #f8d7da;
+  border: 2px solid #dc3545;
+  cursor: not-allowed;
+}
+
+.wishlisted {
+  border: 2px solid #0e2d56;
+}
+
+/* Wishlist Heart */
+.wishlist-heart {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #0e2d56;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.wishlist-heart.active {
+  color: #dc3545;
+}
+
+/* Booking Panel */
+.booking-panel {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #0e2d56;
+  color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.booking-panel h3 {
+  margin-top: 0;
+}
+
+.time-slots {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.time-slot {
+  background-color: #fdd700;
+  color: #0e2d56;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.time-slot:hover {
+  background-color: #ffdf33;
+}
+
+.time-slot.selected {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px #fdd700;
+}
+
+.time-slot.unavailable {
+  background-color: #6c757d;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.booking-details {
+  margin-top: 20px;
+}
+
+.book-btn {
+  background-color: #fdd700;
+  color: #0e2d56;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.book-btn:hover {
+  background-color: #ffdf33;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+.day-cell:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0e2d56;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.tooltip:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #0e2d56 transparent transparent transparent;
+}
+
+.chalet-details {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+}
+
+.details-left {
+  flex: 1;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.thumbnail-container img {
+  width: 80px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.details-right {
+  flex: 1;
+}
+
+.details-right h3 {
+  font-family: "Roboto", sans-serif;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+/* Review Section */
+.reviews-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.review-card {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-user {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.review-stars {
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.review-date {
+  color: #777;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.add-review-btn {
+  background-color: #0e2d56;
+  font-weight: bold;
+  color: #fdd700;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.add-review-btn:hover {
+  background-color: #051a35;
+  transform: translateY(-2px);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.review-form {
+  display: none;
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.star-rating {
+  direction: rtl;
+  display: inline-block;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  font-size: 1.5em;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+  color: #ffd700;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #ffd700;
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  min-height: 100px;
+  resize: none;
+}
+
+.submit-review-btn {
+  background-color: #0e2d56;
+  color: #fdd700;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.submit-review-btn:hover {
+  background-color: #051a35;
+  transform: translateY(-2px);
+  cursor: pointer;
+  font-weight: bold;
+}
+.rating i {
+  color: #ffd700;
+}

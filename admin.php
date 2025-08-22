@@ -1,6 +1,39 @@
 <?php
 require_once 'config.php';
 session_start();
+$sql = "SELECT COUNT(*) AS total_chalets FROM chalet";
+$sql2 = "SELECT COUNT(*) AS total_users FROM users WHERE Role IN ('owner', 'user')";
+$sql3 ="SELECT COUNT(*) AS total_bookings FROM bookings";
+
+$result = $conn->query($sql);
+$result2 = $conn->query($sql2);
+$result3=$conn->query($sql3);
+
+$totalChalets = 0;
+$totalUsers = 0;
+$totalBookings = 0;
+if ($result3 && $row = $result3->fetch_assoc()) {
+    $totalBookings = $row['total_bookings'];
+}
+if ($result && $row = $result->fetch_assoc()) {
+    $totalChalets = $row['total_chalets'];
+}
+if ($result2 && $row = $result2->fetch_assoc()) {
+    $totalUsers = $row['total_users'];
+}
+$sqlRecentUsers = "SELECT userId, CONCAT(FirstName,' ',LastName) AS name, email, phoneNumber, Role, registeredAt 
+                   FROM users 
+                   ORDER BY registeredAt DESC 
+                   LIMIT 5";
+
+$resultRecentUsers = $conn->query($sqlRecentUsers);
+$recentUsers = [];
+
+if ($resultRecentUsers) {
+    while ($row = $resultRecentUsers->fetch_assoc()) {
+        $recentUsers[] = $row;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,16 +54,16 @@ session_start();
         <hr />
         <nav>
           <a href=""><i class="fas fa-home"></i> Home</a>
-          <a href="./html/addChalet.html"
+          <a href="./html/addChalet.php"
             ><i class="fas fa-plus-circle"></i> Add Chalet</a
           >
-          <a href="./html/ViewChalet.html"
+          <a href="./html/ViewChalet.php"
             ><i class="fas fa-eye"></i>View chalet</a
           >
-          <a href="./html/addOwner.html"
+          <a href="./html/addOwner.php"
             ><i class="fas fa-user-plus"></i> Add Owner</a
           >
-          <a href="./html/manageOwner.html"
+          <a href="./html/manageOwner.php"
             ><i class="fas fa-users-cog"></i> Manage Owners</a
           >
         </nav>
@@ -49,54 +82,44 @@ session_start();
           <div class="stat-card">
             <i class="fas fa-users"></i>
             <p>Users</p>
-            <h2>3</h2>
+            <h2><?=$totalUsers?></h2>
           </div>
           <div class="stat-card">
             <i class="fas fa-home"></i>
             <p>Chalets</p>
-            <h2>10</h2>
+            <h2><?= $totalChalets ?></h2>
           </div>
           <div class="stat-card">
             <i class="fas fa-calendar-alt"></i>
             <p>Total Bookings</p>
-            <h2>14</h2>
+            <h2><?= $totalBookings?></h2>
           </div>
         </section>
 
         <section class="bookings">
-          <h2>Latest Bookings</h2>
+          <h2>Latest 5 Registered</h2>
           <table>
             <thead>
               <tr>
-                <th>Booking ID</th>
-                <th>Chalet</th>
-                <th>User</th>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Phone</th>
-                <th>Booking Date</th>
+                <th>Role</th>
+                <th>Registered Date</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>#1</td>
-                <td>almoluk-Chalet</td>
-                <td>test@gmail.com</td>
-                <td>0596060606</td>
-                <td>2025-07-07 18:08</td>
-              </tr>
-              <tr>
-                <td>#2</td>
-                <td>alkoukh-Chalet</td>
-                <td>test@gmail.com</td>
-                <td>0596090909</td>
-                <td>2025-07-10 10:00</td>
-              </tr>
-              <tr>
-                <td>#3</td>
-                <td>albaron-Chalet</td>
-                <td>test@gmail.com</td>
-                <td>0591060235</td>
-                <td>2025-07-12 14:30</td>
-              </tr>
+              <?php foreach ($recentUsers as $user): ?>
+<tr>
+    <td>#<?= $user['userId'] ?></td>
+    <td><?= htmlspecialchars($user['name']) ?></td>
+    <td><?= htmlspecialchars($user['email']) ?></td>
+    <td><?= htmlspecialchars($user['phoneNumber']) ?></td>
+    <td><?= htmlspecialchars($user['Role']) ?></td>
+    <td><?= htmlspecialchars($user['registeredAt']) ?></td>
+</tr>
+<?php endforeach; ?>
             </tbody>
           </table>
         </section>

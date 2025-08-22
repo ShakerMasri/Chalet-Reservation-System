@@ -25,11 +25,9 @@
   text-align: center;
   max-width: 800px;
   padding: 2rem;
-  background: #f4f1ee93;
-  backdrop-filter: blur(10px);
+  background: #f4f1eedc;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.6);
   pointer-events: auto;
 }
 
@@ -57,7 +55,6 @@
   transform: scale(1.02);
   box-shadow: 0 8px 25px #ffd700;
 }
-/* Typography Enhancements */
 .slider-content h2 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
@@ -210,4 +207,124 @@
   100% {
     transform: rotate(360deg);
   }
+}
+.chalets-section .container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin-bottom: 80px;
+}
+.rating {
+  color: #ffd700;
+}
+.rating span {
+  color: #666;
+  font-size: 0.9rem;
+  margin-left: 5px;
+}
+.container h2 {
+  color: #0e2d56;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.chalets-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.chalets-track {
+  display: flex;
+  gap: 20px;
+  animation: slideCards 15s linear infinite;
+}
+
+.chalet-card {
+  flex: 0 0 300px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.chalet-card:hover {
+  transform: scale(1.03);
+}
+
+.chalet-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.chalet-info {
+  padding: 16px;
+}
+
+.chalet-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #0e2d56;
+}
+
+.chalet-info .rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.chalet-info .location {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.chalet-info .price {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #0e2d56;
+}
+
+.price span {
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #666;
+}
+
+.chalet-info .btn-secondary {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #0e2d56;
+  color: #ffd700;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.chalet-info .btn-secondary:hover {
+  background: #0b2245;
+  transform: translateY(-1px);
+}
+
+@keyframes slideCards {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.chalets-slider:hover .chalets-track {
+  animation-play-state: paused;
 }

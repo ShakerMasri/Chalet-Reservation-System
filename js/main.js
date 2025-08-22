@@ -1,14 +1,9 @@
 function signin() {
   window.location.href = "./html/login.php";
 }
-<<<<<<< HEAD
 
 function signup() {
   window.location.href = "./html/signup.php";
-=======
-function signup() {
-  window.location.href = "./html/signup.html";
->>>>>>> 4070f6e97eded006a51ecd0f5cbdfd707db3101c
 }
 
 function initswiper() {
@@ -44,8 +39,43 @@ function initswiper() {
 document.addEventListener("DOMContentLoaded", () => {
   initswiper();
 });
+const track = document.querySelector(".chalets-track");
+const cards = document.querySelectorAll(".chalet-card");
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderCards("chaletscont", chaletData, 3, "./html/");
-  initswiper();
+cards.forEach((card) => {
+  const clone = card.cloneNode(true);
+  track.appendChild(clone);
+});
+
+let position = 0;
+const cardWidth = 300;
+const gap = 20;
+const totalCards = document.querySelectorAll(".chalet-card").length;
+const visibleCards = Math.floor(
+  track.parentElement.offsetWidth / (cardWidth + gap)
+);
+const maxPosition = -(totalCards - visibleCards) * (cardWidth + gap);
+
+function autoSlide() {
+  position -= cardWidth + gap;
+
+  if (Math.abs(position) >= (totalCards * (cardWidth + gap)) / 2) {
+    position = 0;
+    track.style.transition = "none";
+    track.style.transform = `translateX(${position}px)`;
+    setTimeout(() => {
+      track.style.transition = "transform 0.5s ease-in-out";
+    });
+  } else {
+    track.style.transform = `translateX(${position}px)`;
+  }
+}
+
+let slideInterval = setInterval(autoSlide, 5000);
+
+track.parentElement.addEventListener("mouseenter", () =>
+  clearInterval(slideInterval)
+);
+track.parentElement.addEventListener("mouseleave", () => {
+  slideInterval = setInterval(autoSlide, 5000);
 });
