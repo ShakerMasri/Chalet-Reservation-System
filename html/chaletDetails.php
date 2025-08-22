@@ -92,6 +92,35 @@ $stmt->close();
 if (isset($ownerStmt)) $ownerStmt->close();
 if (isset($imageStmt)) $imageStmt->close();
 if (isset($reviewStmt)) $reviewStmt->close();
+$bookingsData = [];
+$bookingSql = "SELECT booking_date, slot FROM bookings WHERE chalet_id = ?";
+$bookingStmt = $conn->prepare($bookingSql);
+$bookingStmt->bind_param("i", $chaletId);
+$bookingStmt->execute();
+$bookingResult = $bookingStmt->get_result();
+
+while ($row = $bookingResult->fetch_assoc()) {
+    $dateKey = $row['booking_date']; 
+    if (!isset($bookingsData[$dateKey])) {
+        $bookingsData[$dateKey] = [
+            'MORNING' => true,
+            'EVENING' => true,
+            'FULL_DAY' => true
+        ];
+    }
+    
+    $bookingsData[$dateKey][$row['slot']] = false;
+    
+    if ($row['slot'] === 'FULL_DAY') {
+        $bookingsData[$dateKey]['MORNING'] = false;
+        $bookingsData[$dateKey]['EVENING'] = false;
+    }
+    
+    $bookingsData[$dateKey]['FULL_DAY'] = 
+        $bookingsData[$dateKey]['MORNING'] && $bookingsData[$dateKey]['EVENING'];
+}
+
+$bookingStmt->close();
 
 ?>
 <!DOCTYPE html>
@@ -260,13 +289,15 @@ if (isset($reviewStmt)) $reviewStmt->close();
         <div class="booking-panel" id="booking-panel" <?= !$isLoggedIn ? 'style="display:none;"' : '' ?>>
           <h3>Book for <span id="selected-date">June 15, 2023</span></h3>
           <div class="time-slots">
-            <div class="time-slot" data-slot="morning">
-              Morning (8am-8pm) - $100
-            </div>
-            <div class="time-slot" data-slot="night">
-              Night (8pm-8am) - $120
-            </div>
-            <div class="time-slot" data-slot="full">Full Day - $200</div>
+           <div class="time-slot" data-slot="MORNING">
+    Morning (8am-8pm) - $<?php echo $chalet['price']; ?>
+</div>
+<div class="time-slot" data-slot="EVENING">
+    Evening (8pm-8am) - $<?php echo $chalet['price']; ?>
+</div>
+<div class="time-slot" data-slot="FULL_DAY">
+    Full Day - $<?php echo $chalet['price'] * 2; ?>
+</div>
           </div>
           <div class="booking-details">
                       <?php if ($isLoggedIn): ?>
@@ -327,18 +358,20 @@ if (isset($reviewStmt)) $reviewStmt->close();
       <p>&copy; 2025 ChaletBooking.</p>
     </footer>
     <script>
-        const chaletData = {
-            id: <?php echo $chaletId; ?>,
-            name: "<?php echo addslashes($chalet['name']); ?>",
-            location: "<?php echo addslashes($chalet['Location']); ?>",
-            price: <?php echo $chalet['price']; ?>,
-            rating: <?php echo $chalet['avg_rating']; ?>,
-            reviewCount: <?php echo $chalet['review_count']; ?>,
-            capacity: <?php echo $chalet['capacity']; ?>,
-            description: "<?php echo addslashes($chalet['description']); ?>",
-            images: <?php echo json_encode($images); ?>,
-        };
-    </script>
+    const chaletData = {
+        id: <?php echo $chaletId; ?>,
+        name: "<?php echo addslashes($chalet['name']); ?>",
+        location: "<?php echo addslashes($chalet['Location']); ?>",
+        price: <?php echo $chalet['price']; ?>,
+        rating: <?php echo $chalet['avg_rating']; ?>,
+        reviewCount: <?php echo $chalet['review_count']; ?>,
+        capacity: <?php echo $chalet['capacity']; ?>,
+        description: "<?php echo addslashes($chalet['description']); ?>",
+        images: <?php echo json_encode($images); ?>,
+    };
+
+    const bookings = <?php echo json_encode($bookingsData); ?>;
+</script>
     <script>
     <?php if (!empty($reviewMessage)): ?>
         alert("<?php echo addslashes($reviewMessage); ?>");

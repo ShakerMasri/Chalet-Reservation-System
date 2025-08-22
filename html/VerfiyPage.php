@@ -4,45 +4,28 @@ require_once '../config.php';
 
 $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $code = trim($_POST['code']);  // keep as string
-    $email = $_SESSION['email'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $code = trim($_POST['code']);
+    echo $code;
+    $userId = $_SESSION['reset_userId'] ?? null;
 
-    if (!$email) {
+    if (!$userId) {
         $message = "Session expired. Please request a new code.";
     } else {
-        $stmt = $conn->prepare("SELECT userId FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
+        $stmt = $conn->prepare("
+            SELECT * FROM password_resets 
+            WHERE userId = ? AND code = ? AND expires_at > NOW()
+        ");
+        $stmt->bind_param("is", $userId, $code);
         $stmt->execute();
-        $userResult = $stmt->get_result();
-        
-        if ($userResult->num_rows > 0) {
-            $user = $userResult->fetch_assoc();
-            $userId = $user['userId'];
-            
-            $stmt = $conn->prepare("SELECT userId FROM password_resets 
-                                    WHERE userId = ? AND code = ? AND expires_at > NOW()
-                                    LIMIT 1");
-            $stmt->bind_param("is", $userId, $code);  
-            $stmt->execute();
-            $result = $stmt->get_result();
+        $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                $_SESSION['reset_verified'] = true;
-                $_SESSION['reset_user_id'] = $userId;
-
-                $deleteStmt = $conn->prepare("DELETE FROM password_resets WHERE userId = ? AND code = ?");
-                $deleteStmt->bind_param("is", $userId, $code);
-                $deleteStmt->execute();
-                $deleteStmt->close();
-                
-                header("Location: ResetPassword.php");
-                exit();
-            } else {
-                $message = "Invalid or expired code.";
-            }
+        if ($result->num_rows > 0) {
+            $_SESSION['verified_userId'] = $userId;
+            header("Location: ResetPassword.php");
+            exit();
         } else {
-            $message = "User not found. Please request a new code.";
+            $message = "Invalid or expired code.";
         }
         $stmt->close();
     }

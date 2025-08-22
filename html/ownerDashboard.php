@@ -4,57 +4,75 @@ session_start();
 $ownedChalets = 0;
 $totalReviews = 0;
 $totalUpcoming = 0;
+$monthlyRevenue = 0;
 
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
 
-    $query = "
-        SELECT COUNT(*) as chalet_count 
-        FROM chalet
-        INNER JOIN users ON chalet.ownerId = users.userId 
-        WHERE users.email = ?
-    ";
+    $query = "SELECT COUNT(*) as chalet_count FROM chalet
+              INNER JOIN users ON chalet.ownerId = users.userId 
+              WHERE users.email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($row = $result->fetch_assoc()) {
         $ownedChalets = $row['chalet_count'];
     }
-    $query = "
-        SELECT COUNT(reviews.reviewId) as total_reviews
-        FROM reviews
-        INNER JOIN chalet ON reviews.chaletId = chalet.chaletId
-        INNER JOIN users ON chalet.ownerId = users.userId
-        WHERE users.email = ?
-    ";
+
+    $query = "SELECT COUNT(reviews.reviewId) as total_reviews
+              FROM reviews
+              INNER JOIN chalet ON reviews.chaletId = chalet.chaletId
+              INNER JOIN users ON chalet.ownerId = users.userId
+              WHERE users.email = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($row = $result->fetch_assoc()) {
         $totalReviews = $row['total_reviews'];
     }
-    $query = "
-    SELECT COUNT(bookings.bookingId) AS total_bookings
+
+    $query = "SELECT COUNT(bookings.bookingId) AS total_bookings
+              FROM bookings
+              INNER JOIN chalet ON bookings.chalet_id = chalet.chaletId
+              INNER JOIN users ON chalet.ownerId = users.userId
+              WHERE users.email = ? AND bookings.booking_date >= CURDATE()";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $totalUpcoming = $row['total_bookings'];
+    }
+
+    $revenueQuery = "
+    SELECT COALESCE(SUM(
+        CASE bookings.slot
+            WHEN 'MORNING' THEN chalet.price
+            WHEN 'EVENING' THEN chalet.price
+            WHEN 'FULL_DAY' THEN chalet.price * 2
+            ELSE chalet.price
+        END
+    ), 0) as monthly_revenue
     FROM bookings
     INNER JOIN chalet ON bookings.chalet_id = chalet.chaletId
     INNER JOIN users ON chalet.ownerId = users.userId
     WHERE users.email = ?
-  AND bookings.booking_date >= CURDATE()
+    AND bookings.booking_date < CURDATE()  -- Only completed stays
+    AND YEAR(bookings.booking_date) = YEAR(CURRENT_DATE)  -- Use booking_date, not created_at!
+    AND MONTH(bookings.booking_date) = MONTH(CURRENT_DATE)  -- Use booking_date!
 ";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($row = $result->fetch_assoc()) {
-    $totalUpcoming = $row['total_bookings'];
+    
+    $stmt = $conn->prepare($revenueQuery);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        $monthlyRevenue = $row['monthly_revenue'];
+    }
 }
-}
-
 
 function getChaletRating($chaletId) {
     global $conn;
@@ -122,7 +140,7 @@ function getChaletRating($chaletId) {
           <div class="stat-card">
             <i class="fas fa-dollar-sign"></i>
             <p>Month Revenue</p>
-            <h2>$8450</h2>
+            <h2><?= $monthlyRevenue ?>$</h2>
           </div>
         </div>
 
@@ -159,9 +177,6 @@ while ($row = $result->fetch_assoc()) {
     $avgRating = getChaletRating($row['chaletId']);
     echo 'Rating: <span class="rating" >' . $avgRating . '<i class="fas fa-star" style="margin-left:5px;"></i></span>';
     echo '<div class="chalet-actions">';
-    echo '<a href="chaletDetails.php?id=' . htmlspecialchars($row['chaletId']) . '" class="view-btn" style="text-decoration: none; margin-top: 7px;">';
-    echo '<i class="fas fa-eye"></i> View-Details';
-    echo '</a>';
     echo '</div>';
     echo '</div>';
     echo '</div>';

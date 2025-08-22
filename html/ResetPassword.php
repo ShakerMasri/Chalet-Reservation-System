@@ -3,64 +3,33 @@ session_start();
 require_once "../config.php";
 
 $message = "";
-$showForm = true;
-$code = isset($_GET['code']) ? $_GET['code'] : '';
+$showForm = isset($_SESSION['verified_userId']);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $code = $_POST['code'] ?? $code;
+if ($_SERVER["REQUEST_METHOD"] === "POST" && $showForm) {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $userId = $_SESSION['verified_userId'];
 
     if ($password !== $confirm_password) {
         $message = "Passwords do not match.";
     } elseif (strlen($password) < 8) {
         $message = "Password must be at least 8 characters long.";
     } else {
-        $hashed_password = sha1($password); 
+        $hashed_password = sha1($password);
 
-        $stmt = $conn->prepare("SELECT userId FROM password_resets WHERE code = ? AND expires_at > NOW()");
-        $stmt->bind_param("i", $code);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $update = $conn->prepare("UPDATE users SET password = ? WHERE userId = ?");
+        $update->bind_param("si", $hashed_password, $userId);
 
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            $userId = $user['userId'];
-
-            $update = $conn->prepare("UPDATE users SET password = ? WHERE userId = ?");
-            $update->bind_param("si", $hashed_password, $userId);
-
-            if ($update->execute()) {
-                $delete = $conn->prepare("DELETE FROM password_resets WHERE code = ?");
-                $delete->bind_param("i", $code);
-                $delete->execute();
-
-                $message = "Password updated successfully. <a href='login.php'>Click here to login</a>.";
-                $showForm = false;
-            } else {
-                $message = "Error updating password. Please try again.";
-            }
-
-            $update->close();
-        } else {
-            $message = "Invalid or expired code.";
+        if ($update->execute()) {
+            $conn->query("DELETE FROM password_resets WHERE userId = $userId");
+            unset($_SESSION['verified_userId']);
+            $message = "Password successfully updated! <a href='login.php'>Login now</a>.";
             $showForm = false;
+        } else {
+            $message = "Failed to update password. Please try again.";
         }
-
-        $stmt->close();
+        $update->close();
     }
-} elseif (!empty($code)) {
-    $stmt = $conn->prepare("SELECT userId FROM password_resets WHERE code = ? AND expires_at > NOW()");
-    $stmt->bind_param("i", $code);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows === 0) {
-        $message = "Invalid or expired code.";
-        $showForm = false;
-    }
-
-    $stmt->close();
 }
 
 $conn->close();

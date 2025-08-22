@@ -22,7 +22,7 @@ if (isset($_GET['delete'])) {
     header("Location: BookingMange.php");
     exit();
 }
- $filter = $_GET['filter'] ?? 'all'; // default all
+ $filter = $_GET['filter'] ?? 'all'; 
 
 $sql = "SELECT b.bookingId, c.name AS chaletName, b.booking_date, b.slot,
                CONCAT(u.FirstName, ' ', u.LastName) AS userName, c.price

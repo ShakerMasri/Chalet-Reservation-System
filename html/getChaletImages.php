@@ -1,6 +1,5 @@
 <?php
 require_once 'config.php';
-
 if (isset($_GET['id'])) {
     $chaletId = intval($_GET['id']);
     $sql = "SELECT image_path FROM chalet_images WHERE chalet_id = ?";

@@ -22,54 +22,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $result->fetch_assoc();
         $userId = $user['userId'];
 
-        // Generate 6-digit code as string with leading zeros
         $code = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-        $expires_at = date('Y-m-d H:i:s', strtotime('+5 minutes'));
+        $expires_at = date("Y-m-d H:i:s", strtotime("+15 minutes"));
 
-        $stmt = $conn->prepare("
+        $stmt2 = $conn->prepare("
             INSERT INTO password_resets (userId, code, expires_at)
             VALUES (?, ?, ?)
             ON DUPLICATE KEY UPDATE code = VALUES(code), expires_at = VALUES(expires_at)
         ");
-        $stmt->bind_param("iss", $userId, $code, $expires_at);
+        $stmt2->bind_param("iss", $userId, $code, $expires_at);
+        $stmt2->execute();
 
-        if ($stmt->execute()) {
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'mohyeess2004@gmail.com';
-                $mail->Password   = 'ahxs avyv bplb yyln';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
+    
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'mohyeess2004@gmail.com';
+            $mail->Password   = 'ahxs avyv bplb yyln';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
 
-                $mail->setFrom('mohyeess2004@gmail.com', 'Chalet Management');
-                $mail->addAddress($email);
+            $mail->setFrom('mohyeess2004@gmail.com', 'Chalet Management');
+            $mail->addAddress($email);
 
-                $mail->isHTML(true);
-                $mail->Subject = 'Password Reset Code';
-                $mail->Body    = "Your password reset code is: <strong>$code</strong> (valid for 5 minutes)";
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset Code';
+            $mail->Body = "<p>Your password reset code is: <b>$code</b></p><p>This code will expire in 15 minutes.</p>";
 
-                $mail->send();
+            $mail->send();
 
-                $_SESSION['email'] = $email;
-                header("Location: verfiyPage.php");
-                exit();
-            } catch (Exception $e) {
-                $error = "Failed to send email. Please try again.";
-            }
-        } else {
-            $error = "Error storing reset request. Please try again.";
+            $_SESSION['reset_userId'] = $userId;
+            header("Location: verfiyPage.php");
+            exit();
+        } catch (Exception $e) {
+            $error = "Failed to send email. Please try again.";
         }
-        $stmt->close();
+
+        $stmt2->close();
     } else {
         $error = "No account found with that email.";
     }
+    $stmt->close();
 }
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -13,13 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rating = intval($_POST['rating']);
     $comment = $conn->real_escape_string(trim($_POST['comment']));
 
-    // Validate inputs
     if ($rating < 1 || $rating > 5 || empty($comment)) {
         header("Location: chaletDetails.php?id=$chaletId&review=error&message=Invalid+input");
         exit();
     }
 
-    // Check if user has at least one past booking for this chalet
     $bookingCheckSql = "SELECT COUNT(*) as booking_count 
                         FROM bookings 
                         WHERE user_id = ? AND chalet_id = ? 
@@ -35,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Check if user has already reviewed this chalet
     $existingReviewSql = "SELECT COUNT(*) as review_count 
                           FROM reviews 
                           WHERE userId = ? AND chaletId = ?";
