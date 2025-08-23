@@ -58,7 +58,7 @@ $result = $conn->query($sql);
   </button>
   <div class="dropdown-content">
     <a href="#">Wishlist</a>
-    <a href="#">Bookings</a>
+    <a href="./html/reservations.php">Bookings</a>
     <a href="./html/logout.php">Logout</a>
   </div>
 </li>

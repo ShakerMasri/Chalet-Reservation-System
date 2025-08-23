@@ -163,7 +163,7 @@ $bookingStmt->close();
   </button>
   <div class="dropdown-content">
     <a href="#">Wishlist</a>
-    <a href="#">Bookings</a>
+    <a href="reservations.php">Bookings</a>
     <a href="logout.php">Logout</a>
   </div>
 </li>
