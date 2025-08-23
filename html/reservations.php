@@ -8,12 +8,10 @@ if (!isset($_SESSION['email']) || $_SESSION['Role'] !== 'user') {
     $isLoggedIn = true;
 }
 
-// Handle delete action
 if (isset($_GET['delete'])) {
     $bookingId = intval($_GET['delete']);
     $deleteSql = "DELETE FROM bookings WHERE bookingId = $bookingId";
     if ($conn->query($deleteSql)) {
-        // Redirect to refresh the page after deletion
         header("Location: reservations.php");
         exit();
     }

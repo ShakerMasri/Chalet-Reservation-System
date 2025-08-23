@@ -1,4 +1,6 @@
 .bookings {
+  margin: 35px;
+  margin-bottom: 300px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 25px;
@@ -32,9 +34,7 @@ th {
 tr:hover {
   background-color: #f9f9f9;
 }
-.delete-btn,
-.edit-btn,
-.view-btn {
+.delete-btn {
   border: none;
   border-radius: 6px;
   padding: 8px 12px;
