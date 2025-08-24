@@ -1,6 +1,10 @@
 <?php
 session_start();
 require_once '../config.php';
+if (!isset($_SESSION['email']) || $_SESSION['Role'] !== 'owner') {
+    header("Location: ../login.php");
+    exit();
+}
 if (isset($_GET['delete'])) {
     $ownerId = $_GET['delete'];
     

@@ -1,6 +1,10 @@
 <?php
 require_once 'config.php';
 session_start();
+if (!isset($_SESSION['email']) || $_SESSION['Role'] !== 'admin') {
+    header("Location: ../login.php");
+    exit();
+}
 $sql = "SELECT COUNT(*) AS total_chalets FROM chalet";
 $sql2 = "SELECT COUNT(*) AS total_users FROM users WHERE Role IN ('owner', 'user')";
 $sql3 ="SELECT COUNT(*) AS total_bookings FROM bookings";
