@@ -318,3 +318,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (refreshInterval) clearInterval(refreshInterval);
   });
 });
+function toggleReviewForm() {
+  const reviewForm = document.getElementById("review-form");
+  if (reviewForm.style.display === "block") {
+    reviewForm.style.display = "none";
+  } else {
+    reviewForm.style.display = "block";
+    reviewForm.scrollIntoView({ behavior: "smooth" });
+  }
+}

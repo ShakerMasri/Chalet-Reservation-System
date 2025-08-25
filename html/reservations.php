@@ -133,8 +133,11 @@ $reservations = $result->fetch_all(MYSQLI_ASSOC);
                     </td>
 </tr>
 <?php endforeach; ?>
+
             </tbody>
+            
           </table>
+
         </section>
     </main>
 

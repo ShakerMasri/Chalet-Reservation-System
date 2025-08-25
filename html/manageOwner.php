@@ -1,10 +1,7 @@
 <?php
 session_start();
 require_once '../config.php';
-if (!isset($_SESSION['email']) || $_SESSION['Role'] !== 'owner') {
-    header("Location: ../login.php");
-    exit();
-}
+
 if (isset($_GET['delete'])) {
     $ownerId = $_GET['delete'];
     
@@ -47,7 +44,7 @@ $result = $conn->query($sql);
   <body>
     <div class="dashboard">
       <aside class="sidebar">
-        <img class="logo" src="../images/beach-hut.png" alt="logo" />
+        <img class= "logo" src="../images/beach-hut.png" alt="logo" />
         <hr />
         <nav>
           <a href="../admin.php"><i class="fas fa-home"></i> Home</a>
@@ -73,8 +70,9 @@ $result = $conn->query($sql);
                   id="table-search"
                   placeholder="Search Owners..."
                   aria-label="Search Owner"
+                  oninput="filterTable()"
                 />
-                <button class="search-btn" type="submit">
+                <button class="search-btn" type="button">
                   <i class="fas fa-search"></i>
                 </button>
               </div>
@@ -85,29 +83,29 @@ $result = $conn->query($sql);
             <table class="chalets-table">
               <thead>
                 <tr>
-                  <th class="sortable">
-                    Owner ID <i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(0)">
+                    Owner ID <i class="fas fa-sort sort-icon" id="sort-icon-0"></i>
                   </th>
-                  <th class="sortable">
-                    Owner Name <i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(1)">
+                    Owner Name <i class="fas fa-sort sort-icon" id="sort-icon-1"></i>
                   </th>
-                  <th class="sortable">
-                    E-mail <i class="fas fa-sort sort-icon"></i>
+                  <th>
+                    E-mail 
                   </th>
-                  <th class="sortable">
-                    Phone Number <i class="fas fa-sort sort-icon"></i>
+                  <th>
+                    Phone Number 
                   </th>
-                  <th class="sortable">
-                    Chalet ID <i class="fas fa-sort sort-icon"></i>
+                  <th>
+                    Chalet ID 
                   </th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="owner-table-body">
                 <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
                   <tr>
-                    <td>#<?= htmlspecialchars($row['userId']); ?></td>
+                    <td data-sort-value="<?= $row['userId']; ?>">#<?= htmlspecialchars($row['userId']); ?></td>
                     <td><?= htmlspecialchars($row['owner_name']); ?></td>
                     <td><?= htmlspecialchars($row['email']); ?></td>
                     <td><?= htmlspecialchars($row['phoneNumber']); ?></td>
@@ -131,6 +129,7 @@ $result = $conn->query($sql);
         </section>
       </div>
     </div>
+    
     <script src="../js/admin.js"></script>
   </body>
 </html>

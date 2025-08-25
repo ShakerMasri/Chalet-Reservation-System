@@ -45,6 +45,7 @@ if (isset($_GET['delete'])) {
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+  
   </head>
   <body>
     <div class="dashboard">
@@ -70,9 +71,9 @@ if (isset($_GET['delete'])) {
         <h2>Chalet Management</h2>
         <div class="table-controls">
           <div class="search-control">
-  <input type="search" id="table-search" placeholder="Search chalets..." aria-label="Search chalets">
-  <button class="search-btn" type="submit"><i class="fas fa-search"></i></button>
-</div>
+            <input type="search" id="table-search" placeholder="Search chalets..." aria-label="Search chalets" oninput="filterTable()">
+            <button class="search-btn" type="button"><i class="fas fa-search"></i></button>
+          </div>
         </div>
       </div>
 
@@ -80,27 +81,27 @@ if (isset($_GET['delete'])) {
         <table class="chalets-table">
           <thead>
             <tr>
-              <th class="sortable">Chalet ID <i class="fas fa-sort sort-icon"></i></th>
-              <th class="sortable">Chalet Name</th>
-              <th class="sortable">Owner Nmae </th>
-              <th class="sortable">Location <i class="fas fa-sort sort-icon"></i></th>
-              <th class="sortable">Capacity <i class="fas fa-sort sort-icon"></i></th>
-              <th class="sortable">Price <i class="fas fa-sort sort-icon"></i></th>
-              <th class="sortable">Rating <i class="fas fa-sort sort-icon"></i></th>
+              <th class="sortable" onclick="sortTable(0)">Chalet ID <i class="fas fa-sort sort-icon" id="sort-icon-0"></i></th>
+              <th class="sortable" onclick="sortTable(1)">Chalet Name<i class="fas fa-sort sort-icon" id="sort-icon-1"></i></th>
+              <th class="sortable" onclick="sortTable(2)">Owner Name <i class="fas fa-sort sort-icon" id="sort-icon-2"></i></th>
+              <th class="sortable" onclick="sortTable(3)">Location <i class="fas fa-sort sort-icon" id="sort-icon-3"></i></th>
+              <th class="sortable" onclick="sortTable(4)">Capacity <i class="fas fa-sort sort-icon" id="sort-icon-4"></i></th>
+              <th class="sortable" onclick="sortTable(5)">Price <i class="fas fa-sort sort-icon" id="sort-icon-5"></i></th>
+              <th class="sortable" onclick="sortTable(6)">Rating <i class="fas fa-sort sort-icon" id="sort-icon-6"></i></th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="chalet-table-body">
           <?php if ($result->num_rows > 0): ?>
     <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
-            <td>#<?= htmlspecialchars($row['chaletId']); ?></td>
+            <td data-sort-value="<?= $row['chaletId']; ?>">#<?= htmlspecialchars($row['chaletId']); ?></td>
             <td><?= htmlspecialchars($row['chaletName']); ?></td>
             <td><?= htmlspecialchars($row['ownerName']); ?></td>
             <td><?= htmlspecialchars($row['Location']); ?></td>
-            <td><?= htmlspecialchars($row['capacity']); ?></td>
-            <td><?= htmlspecialchars($row['price']); ?></td>
-            <td>
+            <td data-sort-value="<?= $row['capacity']; ?>"><?= htmlspecialchars($row['capacity']); ?></td>
+            <td data-sort-value="<?= $row['price']; ?>"><?= htmlspecialchars($row['price']); ?></td>
+            <td data-sort-value="<?= getChaletRating($row['chaletId']); ?>">
                 <?php
                 $rating = getChaletRating($row['chaletId']);
                 echo htmlspecialchars($rating);
@@ -122,25 +123,6 @@ if (isset($_GET['delete'])) {
         <td colspan="8">No chalets found.</td>
     </tr>
 <?php endif; ?>
-<script>
-  const searchInput = document.getElementById('table-search');
-  const table = document.querySelector('.chalets-table tbody');
-  searchInput.addEventListener('input', function() {
-    const filter = searchInput.value.toLowerCase();
-    const rows = table.getElementsByTagName('tr');
-    for (let i = 0; i < rows.length; i++) {
-      const cells = rows[i].getElementsByTagName('td')[1];
-      let match = false;
-      for (let j = 0; j < cells.length - 1; j++) { 
-        if (cells[j].textContent.toLowerCase().includes(filter)) {
-          match = true;
-          break;
-        }
-      }
-      rows[i].style.display = match ? '' : 'none';
-    }
-  });
-</script>
           </tbody>
         </table>
       </div>
@@ -148,7 +130,6 @@ if (isset($_GET['delete'])) {
     </section>
   </div>
     </div>
-
     <script src="../js/admin.js"></script>
   </body>
 </html>

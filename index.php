@@ -48,8 +48,7 @@ $result = $conn->query($sql);
           <ul>
             <li><a href="./index.php">Home</a></li>
             <li><a href="#about">About Us</a></li>
-            <li><a href="#Highest-Rating">Chalets</a></li>
-            <li><a href="#Highest-Rating">Highest rating</a></li>
+            <li><a href="#Highest-Rating">Highest Rating</a></li>
            
     <?php if ($isLoggedIn): ?>
          <li class="dropdown">
@@ -57,7 +56,6 @@ $result = $conn->query($sql);
     <i class="fas fa-user"></i> <?= $_SESSION['FirstName']?> <span class="arrow">▼</span>
   </button>
   <div class="dropdown-content">
-    <a href="#">Wishlist</a>
     <a href="./html/reservations.php">Bookings</a>
     <a href="./html/logout.php">Logout</a>
   </div>

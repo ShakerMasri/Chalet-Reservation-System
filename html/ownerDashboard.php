@@ -5,6 +5,10 @@ $ownedChalets = 0;
 $totalReviews = 0;
 $totalUpcoming = 0;
 $monthlyRevenue = 0;
+if (!isset($_SESSION['email']) || $_SESSION['Role'] !== 'owner') {
+    header("Location: ../login.php");
+    exit();
+}
 
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];

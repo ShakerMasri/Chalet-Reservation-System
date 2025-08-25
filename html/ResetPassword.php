@@ -3,6 +3,7 @@ session_start();
 require_once "../config.php";
 
 $message = "";
+$messageClass = "";
 $showForm = isset($_SESSION['verified_userId']);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && $showForm) {
@@ -12,8 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $showForm) {
 
     if ($password !== $confirm_password) {
         $message = "Passwords do not match.";
+        $messageClass = "alert";
     } elseif (strlen($password) < 8) {
         $message = "Password must be at least 8 characters long.";
+         $messageClass = "alert";
     } else {
         $hashed_password = sha1($password);
 
@@ -23,10 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $showForm) {
         if ($update->execute()) {
             $conn->query("DELETE FROM password_resets WHERE userId = $userId");
             unset($_SESSION['verified_userId']);
-            $message = "Password successfully updated! <a href='login.php'>Login now</a>.";
+            $message = "Password successfully updated!";
+            $messageClass = "success";
             $showForm = false;
         } else {
             $message = "Failed to update password. Please try again.";
+                    $messageClass = "alert";
+
         }
         $update->close();
     }
@@ -47,9 +53,9 @@ $conn->close();
         <h1>Reset Password</h1>
         <p>Enter a new password for your account.</p>
 
-        <?php if ($message): ?>
-            <div class="alert"><?php echo $message; ?></div>
-        <?php endif; ?>
+     <?php if ($message): ?>
+    <div class="<?php echo $messageClass; ?>"><?php echo $message; ?></div>
+<?php endif; ?>
 
         <?php if ($showForm): ?>
         <form method="post">

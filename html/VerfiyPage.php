@@ -6,7 +6,6 @@ $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $code = trim($_POST['code']);
-    echo $code;
     $userId = $_SESSION['reset_userId'] ?? null;
 
     if (!$userId) {
@@ -14,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         $stmt = $conn->prepare("
             SELECT * FROM password_resets 
-            WHERE userId = ? AND code = ? AND expires_at > NOW()
+            WHERE userId = ? AND code = ? 
         ");
         $stmt->bind_param("is", $userId, $code);
         $stmt->execute();

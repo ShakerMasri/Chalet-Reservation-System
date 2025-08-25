@@ -18,12 +18,14 @@ if (isset($_GET['review'])) {
     if ($_GET['review'] === 'success') {
         $reviewMessage = 'Review submitted successfully!';
         $messageType = 'success';
+    } elseif ($_GET['review'] === 'deleted') {
+        $reviewMessage = isset($_GET['message']) ? urldecode($_GET['message']) : 'Review deleted successfully!';
+        $messageType = 'success';
     } elseif ($_GET['review'] === 'error') {
-        $reviewMessage = isset($_GET['message']) ? urldecode($_GET['message']) : 'Failed to submit review';
+        $reviewMessage = isset($_GET['message']) ? urldecode($_GET['message']) : 'Failed to process your request';
         $messageType = 'error';
     }
 }
-
 $chaletId = intval($_GET['id']);
 $chalet = null;
 $images = [];
@@ -153,8 +155,7 @@ $bookingStmt->close();
           <ul>
             <li><a href="../index.php">Home</a></li>
             <li><a href="../index.php">About Us</a></li>
-            <li><a href="../index.php">Chalets</a></li>
-            <li><a href="../index.php">Highest rating</a></li>
+            <li><a href="../index.php">Highest Rating</a></li>
            
     <?php if ($isLoggedIn):  ?>
          <li class="dropdown">
@@ -162,7 +163,6 @@ $bookingStmt->close();
     <i class="fas fa-user"></i> <?= $_SESSION['FirstName']?> <span class="arrow">▼</span>
   </button>
   <div class="dropdown-content">
-    <a href="#">Wishlist</a>
     <a href="reservations.php">Bookings</a>
     <a href="logout.php">Logout</a>
   </div>
@@ -287,7 +287,7 @@ $bookingStmt->close();
         </div>
 
         <div class="booking-panel" id="booking-panel" <?= !$isLoggedIn ? 'style="display:none;"' : '' ?>>
-          <h3>Book for <span id="selected-date">June 15, 2023</span></h3>
+          <h3>Book for <span id="selected-date"><?php echo date('F j, Y'); ?></span></h3>
           <div class="time-slots">
            <div class="time-slot" data-slot="MORNING">
     Morning (8am-8pm) - $<?php echo $chalet['price']; ?>
@@ -310,9 +310,9 @@ $bookingStmt->close();
         <div class="reviews-header">
                 <h2>Guest Reviews (<?php echo count($reviews); ?>)</h2>
           <?php if ($isLoggedIn): ?>
-          <button class="add-review-btn" id="add-review-btn">
-            Add Your Review
-          </button>
+          <button class="add-review-btn" id="add-review-btn" onclick="toggleReviewForm()">
+    Add Your Review
+</button>
             <?php endif; ?>
         </div>
 
@@ -331,6 +331,15 @@ $bookingStmt->close();
             
              <div class="review-date"><?php echo date('F j, Y', strtotime($review['created_at'])); ?></div>
             <div class="review-content"><?php echo htmlspecialchars($review['comment']); ?></div>
+             <?php if ($isLoggedIn && isset($_SESSION['userId']) && $review['userId'] == $_SESSION['userId']): ?>
+        <form action="DeleteReview.php" method="POST" onsubmit="return confirm('Are you sure you want to delete this review?');">
+            <input type="hidden" name="review_id" value="<?php echo $review['reviewId']; ?>">
+            <input type="hidden" name="chalet_id" value="<?php echo $chaletId; ?>">
+            <button type="submit" class="delete-btn">
+                <i class="fas fa-trash"></i> Delete
+            </button>
+        </form>
+    <?php endif; ?>
           </div>
             <?php endforeach; ?>
                 <?php endif; ?>
@@ -372,13 +381,14 @@ $bookingStmt->close();
 
     const bookings = <?php echo json_encode($bookingsData); ?>;
 </script>
-    <script>
+ <script>
     <?php if (!empty($reviewMessage)): ?>
         alert("<?php echo addslashes($reviewMessage); ?>");
         const cleanUrl = window.location.pathname + '?id=' + <?php echo $chaletId; ?>;
         window.history.replaceState({}, document.title, cleanUrl);
     <?php endif; ?>
 </script>
+   
     <script src="../js/nav.js"></script>
     <script src="../js/chaletDetails.js"></script>
   </body>

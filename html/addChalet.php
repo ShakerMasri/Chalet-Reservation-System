@@ -11,16 +11,41 @@ $chalet = [
     'capacity' => '',
     'description' => ''
 ];
+$existingImages = [];
 
 if (isset($_GET['id'])) {
     $editMode = true;
     $chaletId = intval($_GET['id']);
+    
+    // Get chalet details
     $stmt = $conn->prepare("SELECT ownerId, name, Location, price, capacity, description FROM chalet WHERE chaletId=?");
     $stmt->bind_param("i", $chaletId);
     $stmt->execute();
     $stmt->bind_result($chalet['ownerId'], $chalet['name'], $chalet['Location'], $chalet['price'], $chalet['capacity'], $chalet['description']);
     $stmt->fetch();
     $stmt->close();
+    
+    // Get existing images
+    $imgStmt = $conn->prepare("SELECT image_id, image_path FROM chalet_images WHERE chalet_id = ?");
+    $imgStmt->bind_param("i", $chaletId);
+    $imgStmt->execute();
+    $imgResult = $imgStmt->get_result();
+    while ($image = $imgResult->fetch_assoc()) {
+        $existingImages[] = $image;
+    }
+    $imgStmt->close();
+}
+
+// Handle image deletion
+if (isset($_GET['delete_image'])) {
+    $imageId = intval($_GET['delete_image']);
+    $deleteStmt = $conn->prepare("DELETE FROM chalet_images WHERE image_id = ?");
+    $deleteStmt->bind_param("i", $imageId);
+    if ($deleteStmt->execute()) {
+        header("Location: addChalet.php?id=" . $chaletId . "&msg=image_deleted");
+        exit;
+    }
+    $deleteStmt->close();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,6 +61,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("issdisi", $ownerId, $name, $location, $price, $max_capacity, $description, $chaletId);
         $success = $stmt->execute();
         $stmt->close();
+        
+        // Handle new image uploads in edit mode
+        if (!empty($_FILES['image']['name'][0])) {
+            $uploadDir = "../images/golden/";
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+            foreach ($_FILES['image']['tmp_name'] as $key => $tmp_name) {
+                if ($_FILES['image']['error'][$key] !== UPLOAD_ERR_OK) {
+                    continue;
+                }
+                $fileName = uniqid() . "_" . basename($_FILES['image']['name'][$key]);
+                $targetPath = $uploadDir . $fileName;
+                if (move_uploaded_file($tmp_name, $targetPath)) {
+                    $stmt = $conn->prepare("INSERT INTO chalet_images (chalet_id, image_path) VALUES (?, ?)");
+                    $stmt->bind_param("is", $chaletId, $fileName);
+                    $stmt->execute();
+                    $stmt->close();
+                }
+            }
+        }
+        
         if ($success) {
             header("Location: ViewChalet.php?msg=updated");
             exit;
@@ -69,8 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ViewChalet.php?msg=added");
             exit;
         } else {
-    echo "Error adding chalet: " . $conn->error;
-}
+            echo "Error adding chalet: " . $conn->error;
+        }
     }
 }
 ?>
@@ -82,6 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title><?= $editMode ? 'Edit Chalet' : 'Add Chalet' ?></title>
     <link rel="stylesheet" href="../css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
   </head>
   <body>
     <div class="dashboard">
@@ -176,9 +224,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           ><?= htmlspecialchars($chalet['description']) ?></textarea>
         </div>
 
-        <?php if (!$editMode): ?>
         <div class="form-group full-width">
-          <label>Chalet Image</label>
+          <label>Chalet Images</label>
           <div class="image-upload">
             <label for="image-upload" class="image-upload-label">
               <i class="fas fa-cloud-upload-alt"></i>
@@ -192,8 +239,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               multiple 
             />
           </div>
+          
+          <?php if ($editMode && !empty($existingImages)): ?>
+          <div class="existing-images">
+            <h3>Existing Images</h3>
+            <div class="image-gallery">
+              <?php foreach ($existingImages as $image): ?>
+              <div class="image-item">
+                <img src="../images/golden/<?= htmlspecialchars($image['image_path']) ?>" 
+                     alt="Chalet Image">
+                <button type="button" class="delete-image" 
+                        onclick="if(confirm('Delete this image?')) { window.location.href='addChalet.php?id=<?= $chaletId ?>&delete_image=<?= $image['image_id'] ?>'; }">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+          <?php endif; ?>
         </div>
-        <?php endif; ?>
       </div>
 
       <button type="submit" class="submit-btn"><?= $editMode ? 'Update Chalet' : 'Add Chalet' ?></button>

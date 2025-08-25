@@ -64,8 +64,7 @@ $chalets_json = json_encode($chalets);
           <ul>
             <li><a href="../index.php">Home</a></li>
             <li><a href="../index.php">About Us</a></li>
-            <li><a href="../index.php">Chalets</a></li>
-            <li><a href="../index.php">Highest rating</a></li>
+            <li><a href="../index.php">Highest Rating</a></li>
            
     <?php if ($isLoggedIn):  ?>
          <li class="dropdown">
@@ -73,7 +72,6 @@ $chalets_json = json_encode($chalets);
     <i class="fas fa-user"></i> <?= $_SESSION['FirstName']?> <span class="arrow">▼</span>
   </button>
   <div class="dropdown-content">
-    <a href="#">Wishlist</a>
     <a href="reservations.php">Bookings</a>
     <a href="logout.php">Logout</a>
   </div>

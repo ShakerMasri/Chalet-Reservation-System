@@ -22,7 +22,7 @@ if (isset($_GET['delete'])) {
     header("Location: BookingMange.php");
     exit();
 }
- $filter = $_GET['filter'] ?? 'all'; 
+$filter = $_GET['filter'] ?? 'all'; 
 
 $sql = "SELECT b.bookingId, c.name AS chaletName, b.booking_date, b.slot,
                CONCAT(u.FirstName, ' ', u.LastName) AS userName, c.price
@@ -95,8 +95,9 @@ $result = $stmt->get_result();
                   id="table-search"
                   placeholder="Search User..."
                   aria-label="Search User"
+                  oninput="filterTable()"
                 />
-                <button class="search-btn" type="submit">
+                <button class="search-btn" type="button">
                   <i class="fas fa-search"></i>
                 </button>
               </div>
@@ -107,39 +108,39 @@ $result = $stmt->get_result();
             <table class="chalets-table">
               <thead>
                 <tr>
-                  <th class="sortable">
-                    Booking ID <i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(0)">
+                    Booking ID <i class="fas fa-sort sort-icon" id="sort-icon-0"></i>
                   </th>
-                  <th class="sortable">
-                    Chalet Name <i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(1)">
+                    Chalet Name <i class="fas fa-sort sort-icon" id="sort-icon-1"></i>
                   </th>
-                  <th class="sortable">
-                  Date<i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(2)">
+                  Date<i class="fas fa-sort sort-icon" id="sort-icon-2"></i>
                   </th>
-                  <th class="sortable">
-                  Slot<i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(3)">
+                  Slot<i class="fas fa-sort sort-icon" id="sort-icon-3"></i>
                   </th>
-                  <th class="sortable">
-                    User Name <i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(4)">
+                    User Name <i class="fas fa-sort sort-icon" id="sort-icon-4"></i>
                   </th>
-                  <th class="sortable">
-                    Total Price<i class="fas fa-sort sort-icon"></i>
+                  <th class="sortable" onclick="sortTable(5)">
+                    Total Price<i class="fas fa-sort sort-icon" id="sort-icon-5"></i>
                   </th>
                     <th>Actions</th>    
                 </tr>
               </thead>
-                  <tbody>
+                  <tbody id="booking-table-body">
 <?php
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $price = ($row['slot'] === 'FULL_DAY') ? $row['price'] * 2 : $row['price'];
         echo "<tr>
-                <td>#{$row['bookingId']}</td>
+                <td data-sort-value='{$row['bookingId']}'>#{$row['bookingId']}</td>
                 <td>{$row['chaletName']}</td>
-                <td>{$row['booking_date']}</td>
+                <td data-sort-value='{$row['booking_date']}'>{$row['booking_date']}</td>
                 <td>{$row['slot']}</td>
                 <td>{$row['userName']}</td>
-                <td>\${$price}</td>
+                <td data-sort-value='{$price}'>\${$price}</td>
                 <td>
                       <a href='BookingMange.php?delete=" . $row['bookingId'] . "' 
                class='delete-btn' style='text-decoration:none;'
@@ -149,7 +150,7 @@ if ($result->num_rows > 0) {
               </tr>";
     }
 } else {
-    echo "<tr><td colspan='6'>No bookings found</td></tr>";
+    echo "<tr><td colspan='7'>No bookings found</td></tr>";
 }
 ?>
 </tbody>
@@ -159,6 +160,6 @@ if ($result->num_rows > 0) {
         </section>
       </div>
     </div>
-       <script src="../js/owner.js"></script>
+    <script src="../js/owner.js"></script>
   </body>
 </html>

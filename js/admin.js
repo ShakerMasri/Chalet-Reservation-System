@@ -68,3 +68,95 @@ function logout2() {
     fetch("logout.php").then(() => (window.location.href = "login.php"));
   }
 }
+function filterTable() {
+  const searchInput = document.getElementById("table-search");
+  if (!searchInput) return;
+
+  const filter = searchInput.value.toLowerCase();
+  let tableBody;
+
+  if (document.getElementById("chalet-table-body")) {
+    tableBody = document.getElementById("chalet-table-body");
+  } else if (document.getElementById("owner-table-body")) {
+    tableBody = document.getElementById("owner-table-body");
+  } else {
+  }
+
+  const rows = tableBody.getElementsByTagName("tr");
+  const searchColumn = tableBody.id === "owner-table-body" ? 1 : 1;
+
+  for (let i = 0; i < rows.length; i++) {
+    const nameCell = rows[i].getElementsByTagName("td")[searchColumn];
+    if (nameCell) {
+      const name = nameCell.textContent || nameCell.innerText;
+      if (name.toLowerCase().includes(filter)) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+  }
+}
+
+let currentSortColumn = -1;
+let sortDirection = 1;
+
+function sortTable(columnIndex) {
+  let tableBody;
+
+  if (document.getElementById("chalet-table-body")) {
+    tableBody = document.getElementById("chalet-table-body");
+  } else if (document.getElementById("owner-table-body")) {
+    tableBody = document.getElementById("owner-table-body");
+    if (columnIndex > 1) return;
+  } else {
+    return;
+  }
+
+  const rows = Array.from(tableBody.querySelectorAll("tr"));
+
+  document.querySelectorAll(".sort-icon").forEach((icon) => {
+    icon.classList.remove("active", "asc", "desc");
+  });
+
+  if (currentSortColumn === columnIndex) {
+    sortDirection *= -1;
+  } else {
+    currentSortColumn = columnIndex;
+    sortDirection = 1;
+  }
+
+  const sortIcon = document.getElementById(`sort-icon-${columnIndex}`);
+  if (sortIcon) {
+    sortIcon.classList.add("active");
+    sortIcon.classList.add(sortDirection === 1 ? "asc" : "desc");
+  }
+
+  rows.sort((a, b) => {
+    let aValue, bValue;
+
+    const aCell = a.cells[columnIndex];
+    const bCell = b.cells[columnIndex];
+
+    aValue = aCell.getAttribute("data-sort-value") || aCell.textContent;
+    bValue = bCell.getAttribute("data-sort-value") || bCell.textContent;
+
+    if (columnIndex === 0 || columnIndex === 4 || columnIndex === 5) {
+      aValue = isNaN(aValue) ? aValue : Number(aValue);
+      bValue = isNaN(bValue) ? bValue : Number(bValue);
+    }
+
+    if (columnIndex === 6 && aValue === "N/A") aValue = 0;
+    if (columnIndex === 6 && bValue === "N/A") bValue = 0;
+
+    if (aValue < bValue) return -1 * sortDirection;
+    if (aValue > bValue) return 1 * sortDirection;
+    return 0;
+  });
+
+  while (tableBody.firstChild) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
+
+  rows.forEach((row) => tableBody.appendChild(row));
+}

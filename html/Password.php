@@ -23,14 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userId = $user['userId'];
 
         $code = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-        $expires_at = date("Y-m-d H:i:s", strtotime("+15 minutes"));
-
         $stmt2 = $conn->prepare("
-            INSERT INTO password_resets (userId, code, expires_at)
-            VALUES (?, ?, ?)
-            ON DUPLICATE KEY UPDATE code = VALUES(code), expires_at = VALUES(expires_at)
+            INSERT INTO password_resets (userId, code)
+            VALUES (?, ?)
+            ON DUPLICATE KEY UPDATE code = VALUES(code)
         ");
-        $stmt2->bind_param("iss", $userId, $code, $expires_at);
+        $stmt2->bind_param("is", $userId, $code);
         $stmt2->execute();
 
     
@@ -88,7 +86,7 @@ $conn->close();
         <?php endif; ?>
 
         <form method="post">
-            <input type="email" name="email" placeholder="you@example.com" required>
+            <input type="email" name="email" placeholder="name@gmail.com" required>
             <button type="submit">Send Reset Code</button>
         </form>
 
